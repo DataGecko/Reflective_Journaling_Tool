@@ -36,11 +36,11 @@ def open_yaml(filepath):
     return data
 
 
-###     API functions
+###     API functions  gpt-4-0613 gpt-3.5-turbo
+### https://platform.openai.com/docs/models/continuous-model-upgrades
 
-
-def chatbot(conversation, model="gpt-4-0613", temperature=0):
-    max_retry = 7
+def chatbot(conversation, model="gpt-3.5-turbo-0613", temperature=0):
+    max_retry = 3
     retry = 0
     while True:
         try:
@@ -72,11 +72,11 @@ def chatbot(conversation, model="gpt-4-0613", temperature=0):
 
 def get_user_input():
     # get user input
-    text = input('\n\n\nUSER:\n\n')
+    text = input('\n\n\nUSER: (Type DONE to finish)\n\n')
     
     # check if scratchpad updated, continue
     if 'DONE' in text:
-        print('\n\n\nThank you for participating in this survey! Your results have been saved. Program will exit in 5 seconds.')
+        print('\n\n\nThis ends todays session. No data has been saved. Program will exit in 5 seconds.')
         sleep(5)
         exit(0)
     if text == '':
