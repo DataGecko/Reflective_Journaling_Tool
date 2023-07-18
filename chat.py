@@ -3,6 +3,7 @@ from time import time, sleep
 from halo import Halo
 import textwrap
 import sys
+import argparse
 import yaml
 # Use readline for better input() editing, if available
 try:
@@ -103,13 +104,18 @@ def generate_chat_response(ALL_MESSAGES, conversation):
     ALL_MESSAGES.append({'role': 'assistant', 'content': response})
     formatted_lines = [textwrap.fill(line, width=120, initial_indent='    ', subsequent_indent='    ') for line in response.split('\n')]
     formatted_text = '\n'.join(formatted_lines)
-    print('\n\n\nJOURNAL:\n\n%s' % formatted_text)
+    print('\n\n\nAI-GTP:\n\n%s' % formatted_text)
 
 
 if __name__ == '__main__':
     # instantiate chatbot, variables
     openai.api_key = open_file('key_openai.txt').strip()
-    system_message = open_file('system.txt')
+###    system_message = open_file('system.txt')
+    parser = argparse.ArgumentParser(description='Process system message from a file.')
+    parser.add_argument('system_file', nargs='?', default='system.txt', help='Path to the system file. Default is "system.txt".')
+    args = parser.parse_args()
+    system_message = open_file(args.system_file)
+    
     ALL_MESSAGES = list()
 
     while True:
